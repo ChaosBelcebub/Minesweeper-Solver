@@ -31,3 +31,5 @@ clean:
 	rm -f *.o
 	rm -f $(MAIN)
 	rm -f $(TEST)
+	rm -f *.h~
+	rm -f *.cpp~
