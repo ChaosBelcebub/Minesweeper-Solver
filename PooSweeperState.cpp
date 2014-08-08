@@ -11,7 +11,7 @@ PooSweeperStateBase* POO = &poo;
 // _____________________________________________________________________________
 PooSweeperState::CellInfo PooSweeperState::getCellInfo(
     size_t rowIndex, size_t colIndex) const {
-  return UNREVEALED;
+  return CellInfoStorage[rowIndex][colIndex];
 }
 
 // _____________________________________________________________________________
@@ -20,6 +20,12 @@ void PooSweeperState::initialize(
   _numRows = numRows;
   _numCols = numCols;
   _numPoos = numPoos;
+
+  // Set other variable to default
+  _numRevealed = 0;
+  _numMarked = 0;
+  _status = ONGOING;
+
   size_t pooRow;
   size_t pooCol;
   // Set game to unrevealed and poos to no poos
@@ -47,7 +53,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {}
 
 // _____________________________________________________________________________
 PooSweeperState::GameStatus PooSweeperState::status() const {
-  return ONGOING;
+  return _status;
 }
 
 // _____________________________________________________________________________

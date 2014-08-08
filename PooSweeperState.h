@@ -47,6 +47,9 @@ class PooSweeperState : public PooSweeperStateBase{
   size_t _numRevealed;
   size_t _numMarked;
 
+  // Stores the status of the game as membervariable
+  GameStatus _status;
+
   // Stores the entire field without poos
   std::vector<std::vector<CellInfo>> CellInfoStorage;
 
