@@ -1,8 +1,8 @@
 // Copyright 2014, University of Freiburg.
 // Author: Michael Kotzjan
 
-#ifndef POOSWEEPERSOLVER_H_
-#define POOSWEEPERSOLVER_H_
+#ifndef PROJEKT_POOSWEEPERSOLVER_H_
+#define PROJEKT_POOSWEEPERSOLVER_H_
 
 #include "./PooSweeperMove.h"
 #include "./PooSweeperSolverBase.h"
@@ -33,4 +33,4 @@ class PooSweeperSolver : public PooSweeperSolverBase {
   bool specialRevealOperation();
 };
 
-#endif  // POOSWEEPERSOLVER_H_
+#endif  // PROJEKT_POOSWEEPERSOLVER_H_

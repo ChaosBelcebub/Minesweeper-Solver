@@ -1,8 +1,8 @@
 // Copyright 2014, University of Freiburg.
 // Author: Michael Kotzjan
 
-#ifndef POOSWEEPERSTATE_H_
-#define POOSWEEPERSTATE_H_
+#ifndef PROJEKT_POOSWEEPERSTATE_H_
+#define PROJEKT_POOSWEEPERSTATE_H_
 
 #include <gtest/gtest.h>
 #include <vector>
@@ -62,4 +62,4 @@ class PooSweeperState : public PooSweeperStateBase{
   bool checkPoo(size_t rowIndex, size_t colIndex) const;
 };
 
-#endif  // POOSWEEPERSTATE_H_
+#endif  // PROJEKT_POOSWEEPERSTATE_H_

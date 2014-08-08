@@ -2,8 +2,8 @@
 // Chair of Algorithms and Data Structures.
 // Author: Hannah Bast
 
-#ifndef POOSWEEPERMOVE_H_
-#define POOSWEEPERMOVE_H_
+#ifndef PROJEKT_POOSWEEPERMOVE_H_
+#define PROJEKT_POOSWEEPERMOVE_H_
 
 #include <stdlib.h>
 
@@ -19,4 +19,4 @@ class PooSweeperMove {
   // enum { REVEAL = 0, TOGGLE_MARK = 1 } type2;
 };
 
-#endif  // POOSWEEPERMOVE_H_
+#endif  // PROJEKT_POOSWEEPERMOVE_H_
