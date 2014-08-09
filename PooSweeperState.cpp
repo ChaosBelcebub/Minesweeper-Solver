@@ -70,3 +70,15 @@ size_t PooSweeperState::numRevealed() const { return _numRevealed; }
 
 // _____________________________________________________________________________
 size_t PooSweeperState::numMarked() const { return _numMarked; }
+
+// _____________________________________________________________________________
+void PooSweeperState::autoReveal() {}
+
+// _____________________________________________________________________________
+bool PooSweeperState::checkPoo(size_t rowIndex, size_t colIndex) const {
+  if (CellInfoPoo[rowIndex][colIndex] == POO) {
+    return true;
+  } else {
+    return false;
+  }
+}
