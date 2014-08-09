@@ -50,7 +50,31 @@ void PooSweeperState::initialize(
 }
 
 // _____________________________________________________________________________
-void PooSweeperState::applyMove(const PooSweeperMove& move) {}
+void PooSweeperState::applyMove(const PooSweeperMove& move) {
+  size_t posRow;
+  size_t posCol;
+  size_t countPoo = 0;
+
+  if (move.type == PooSweeperMove::REVEAL) {
+    if (CellInfoPoo[move.row][move.col] == POO) {
+      CellInfoStorage[move.row][move.col] = REVEALED_POO;
+      _status = LOST;
+    }
+    for (int x = -1; x < 2; ++x) {
+      for (int y = -1; y < 2; ++y) {
+        posRow = move.row + x;
+        posCol = move.col + y;
+        if (CellInfoPoo[posRow][posCol] == POO) {
+          ++countPoo;
+        }
+      }
+    }
+    if (countPoo != 0) {
+      CellInfoStorage[move.row][move.col] = countPoo;
+      return;
+    }
+  }
+}
 
 // _____________________________________________________________________________
 PooSweeperState::GameStatus PooSweeperState::status() const {
