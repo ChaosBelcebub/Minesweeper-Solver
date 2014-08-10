@@ -56,9 +56,11 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
   size_t countPoo = 0;
 
   if (move.type == PooSweeperMove::REVEAL) {
-    if (CellInfoPoo[move.row][move.col] == POO) {
+    if (checkPoo(move.row, move.col) == true) {
       CellInfoStorage[move.row][move.col] = REVEALED_POO;
       _status = LOST;
+      ++_numRevealed;
+      return;
     }
     for (int x = -1; x < 2; ++x) {
       for (int y = -1; y < 2; ++y) {
@@ -69,10 +71,28 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
         }
       }
     }
-    if (countPoo != 0) {
-      CellInfoStorage[move.row][move.col] = countPoo;
+    if (countPoo == 8) {
+      CellInfoStorage[move.row][move.col] = REVEALED_EIGHT;
       return;
+    } else if (countPoo == 7) {
+      CellInfoStorage[move.row][move.col] = REVEALED_SEVEN;
+    } else if (countPoo == 6) {
+      CellInfoStorage[move.row][move.col] = REVEALED_SIX;
+    } else if (countPoo == 5) {
+      CellInfoStorage[move.row][move.col] = REVEALED_FIVE;
+    } else if (countPoo == 4) {
+      CellInfoStorage[move.row][move.col] = REVEALED_FOUR;
+    } else if (countPoo == 3) {
+      CellInfoStorage[move.row][move.col] = REVEALED_THREE;
+    } else if (countPoo == 2) {
+      CellInfoStorage[move.row][move.col] = REVEALED_TWO;
+    } else if (countPoo == 1) {
+      CellInfoStorage[move.row][move.col] = REVEALED_ONE;
+    } else {
+      CellInfoStorage[move.row][move.col] = REVEALED_ZERO;
     }
+    ++_numRevealed;
+    return;
   }
 }
 
