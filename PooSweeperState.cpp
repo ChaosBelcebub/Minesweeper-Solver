@@ -103,6 +103,9 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     }
     return;
   } else if (move.type == PooSweeperMove::LEFT_RIGHT) {
+    if (CellInfoStorage[move.row][move.col] >= 1) {
+    }
+    return;
   }
 }
 
