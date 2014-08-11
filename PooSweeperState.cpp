@@ -93,6 +93,15 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     }
     ++_numRevealed;
     return;
+  } else if (move.type == PooSweeperMove::TOGGLE_MARK) {
+    if (CellInfoStorage[move.row][move.col] == UNREVEALED) {
+      CellInfoStorage[move.row][move.col] = MARKED;
+      ++_numMarked;
+    } else if (CellInfoStorage[move.row][move.col] == MARKED) {
+      CellInfoStorage[move.row][move.col] = UNREVEALED;
+      --_numMarked;
+    }
+    return;
   }
 }
 

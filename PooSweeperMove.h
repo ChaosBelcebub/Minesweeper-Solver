@@ -14,8 +14,8 @@ class PooSweeperMove {
   size_t row;
   size_t col;
 
-  // Type of move (reveal or toggle mine mark).
-  enum { REVEAL, TOGGLE_MARK } type;
+  // Type of move (reveal, toggle mine mark or left-right klick).
+  enum { REVEAL, TOGGLE_MARK, LEFT_RIGHT } type;
   // enum { REVEAL = 0, TOGGLE_MARK = 1 } type2;
 };
 
