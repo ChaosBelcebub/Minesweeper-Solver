@@ -102,6 +102,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
       --_numMarked;
     }
     return;
+  } else if (move.type == PooSweeperMove::LEFT_RIGHT) {
   }
 }
 
