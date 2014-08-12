@@ -71,26 +71,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
         }
       }
     }
-    if (countPoo == 8) {
-      CellInfoStorage[move.row][move.col] = REVEALED_EIGHT;
-      return;
-    } else if (countPoo == 7) {
-      CellInfoStorage[move.row][move.col] = REVEALED_SEVEN;
-    } else if (countPoo == 6) {
-      CellInfoStorage[move.row][move.col] = REVEALED_SIX;
-    } else if (countPoo == 5) {
-      CellInfoStorage[move.row][move.col] = REVEALED_FIVE;
-    } else if (countPoo == 4) {
-      CellInfoStorage[move.row][move.col] = REVEALED_FOUR;
-    } else if (countPoo == 3) {
-      CellInfoStorage[move.row][move.col] = REVEALED_THREE;
-    } else if (countPoo == 2) {
-      CellInfoStorage[move.row][move.col] = REVEALED_TWO;
-    } else if (countPoo == 1) {
-      CellInfoStorage[move.row][move.col] = REVEALED_ONE;
-    } else {
-      CellInfoStorage[move.row][move.col] = REVEALED_ZERO;
-    }
+    CellInfoStorage[move.row][move.col] = CellInfo(countPoo);
     ++_numRevealed;
     return;
   } else if (move.type == PooSweeperMove::TOGGLE_MARK) {
@@ -106,15 +87,21 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     if (CellInfoStorage[move.row][move.col] >= 1) {
       size_t posX;
       size_t posY;
+
       for (int i = -1; i < 2; ++i) {
         for (int j = -1; j < 2; ++j) {
           posX = move.row + i;
           posY = move.col + j;
+          if (CellInfoPoo[posX][posY] == POO &&
+              CellInfoStorage[posX][posY] == UNREVEALED) {
+            CellInfoStorage[posX][posY] = REVEALED_POO;
+            _status = LOST;
+            ++_numRevealed;
+            return;
+          }
           if (CellInfoStorage[posX][posY] == UNREVEALED) {
-          // Please lock over again!
             for (int x = -1; x < 2; ++x) {
               for (int y = -1; y < 2; ++y) {
-                // Look for deklaration
                 posRow = posX + x;
                 posCol = posY + y;
                 if (CellInfoPoo[posRow][posCol] == POO) {
@@ -122,27 +109,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
                 }
               }
             }
-            // Missing option for poo on the revealed field
-            if (countPoo == 8) {
-              CellInfoStorage[posX][posY] = REVEALED_EIGHT;
-              return;
-            } else if (countPoo == 7) {
-              CellInfoStorage[posX][posY] = REVEALED_SEVEN;
-            } else if (countPoo == 6) {
-              CellInfoStorage[posX][posY] = REVEALED_SIX;
-            } else if (countPoo == 5) {
-              CellInfoStorage[posX][posY] = REVEALED_FIVE;
-            } else if (countPoo == 4) {
-              CellInfoStorage[posX][posY] = REVEALED_FOUR;
-            } else if (countPoo == 3) {
-              CellInfoStorage[posX][posY] = REVEALED_THREE;
-            } else if (countPoo == 2) {
-              CellInfoStorage[posX][posY] = REVEALED_TWO;
-            } else if (countPoo == 1) {
-              CellInfoStorage[posX][posY] = REVEALED_ONE;
-            } else {
-              CellInfoStorage[posX][posY] = REVEALED_ZERO;
-            }
+            CellInfoStorage[posX][posY] = CellInfo(countPoo);
             ++_numRevealed;
             return;
           }
