@@ -74,6 +74,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     CellInfoStorage[move.row][move.col] = CellInfo(countPoo);
     ++_numRevealed;
     return;
+
   } else if (move.type == PooSweeperMove::TOGGLE_MARK) {
     if (CellInfoStorage[move.row][move.col] == UNREVEALED) {
       CellInfoStorage[move.row][move.col] = MARKED;
@@ -83,6 +84,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
       --_numMarked;
     }
     return;
+
   } else if (move.type == PooSweeperMove::LEFT_RIGHT) {
     if (CellInfoStorage[move.row][move.col] >= 1) {
       size_t posX;
