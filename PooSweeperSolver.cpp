@@ -1,6 +1,7 @@
 // Copyright 2014, University of Freiburg.
 // Author: Michael Kotzjan
 
+#include "./PooSweeperStateBase.h"
 #include "./PooSweeperMove.h"
 #include "./PooSweeperSolver.h"
 
@@ -12,15 +13,21 @@ PooSweeperMove PooSweeperSolver::generateMove(
   // Reveal the 4 corners
     switch (_startGame) {
       case 0:
-        return move;
+        move.row = 0;
+        move.col = 0;
       case 1:
-        return move;
+        move.row = state->_numRows();
+        move.col = 0;
       case 2:
-        return move;
+        move.row = 0;
+        move.col = state->_numCols();
       case 3:
-        return move;
+        move.row = state->_numRows();
+        move.col = state->_numCols();
     }
+    move.type = PooSweeperMove::REVEAL;
     ++_startGame;
+    return move;
   }
   for (int i = 0; i < state->numRows(); ++i) {
     for (int j = 0; j < state->numCols(); ++j) {
