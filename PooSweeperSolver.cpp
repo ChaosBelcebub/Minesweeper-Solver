@@ -16,14 +16,14 @@ PooSweeperMove PooSweeperSolver::generateMove(
         move.row = 0;
         move.col = 0;
       case 1:
-        move.row = state->_numRows();
+        move.row = state->numRows();
         move.col = 0;
       case 2:
         move.row = 0;
-        move.col = state->_numCols();
+        move.col = state->numCols();
       case 3:
-        move.row = state->_numRows();
-        move.col = state->_numCols();
+        move.row = state->numRows();
+        move.col = state->numCols();
     }
     move.type = PooSweeperMove::REVEAL;
     ++_startGame;
