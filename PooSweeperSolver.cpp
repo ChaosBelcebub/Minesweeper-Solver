@@ -7,6 +7,9 @@
 // _____________________________________________________________________________
 PooSweeperMove PooSweeperSolver::generateMove(
     const PooSweeperStateBase* state) {
+  if (_startGame < 4) {
+  // Reveal the 4 corners
+  }
   PooSweeperMove move;
   for (int i = 0; i < state->numRows(); ++i) {
     for (int j = 0; j < state->numCols(); ++j) {
