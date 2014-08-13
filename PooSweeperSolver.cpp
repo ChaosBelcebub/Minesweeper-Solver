@@ -8,9 +8,11 @@
 PooSweeperMove PooSweeperSolver::generateMove(
     const PooSweeperStateBase* state) {
   PooSweeperMove move;
-  move.row = 1;
-  move.col = 2;
-  move.type = PooSweeperMove::REVEAL;
+  for (int i = 0; i < state->numRows(); ++i) {
+    for (int j = 0; j < state->numCols(); ++j) {
+    // Do something special
+    }
+  }
   return move;
 }
 
