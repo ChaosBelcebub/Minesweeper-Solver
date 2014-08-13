@@ -16,7 +16,7 @@ class PooSweeperSolver : public PooSweeperSolverBase {
 
  private:
   // Temporary variable use for first reveal operations
-  size_t _startGame = 0;
+  bool _startGame = true;
   // Return the number of unrevealed fields around given position
   size_t numUnrevealed(size_t rowIndex, size_t colIndex) const;
 
