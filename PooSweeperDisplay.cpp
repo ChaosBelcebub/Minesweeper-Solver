@@ -3,5 +3,8 @@
 
 #include "./PooSweeperDisplay.h"
 
+PooSweeperDisplay display;
+PooSweeperDisplayBase* DISPLAY = &display;
+
 //______________________________________________________________________________
 void PooSweeperDisplay::show(const PooSweeperStateBase* state) {}
