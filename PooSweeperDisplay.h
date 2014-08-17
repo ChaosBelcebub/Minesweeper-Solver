@@ -1,7 +1,7 @@
 // Copyright 2014, University of Freiburg,
 // Author: Michael Kotzjan
 
-#include "./PooSweeperDisplayBase"
+#include "./PooSweeperDisplayBase.h"
 
 #ifndef PROJEKT_POOSWEEPERDISPLAY_H_
 #define PROJEKT_POOSWEEPERDISPLAY_H_
