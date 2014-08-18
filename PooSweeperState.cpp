@@ -38,6 +38,8 @@ void PooSweeperState::initialize(
       CellInfoPoo[i].push_back(NO_POO);
     }
   }
+  CellInfoStorage[4][3] = MARKED;
+  CellInfoStorage[1][1] = REVEALED_POO;
   // Set poos
   for (int i = 0; i < _numPoos;) {
     pooRow = random() % _numRows;
