@@ -4,6 +4,8 @@
 #ifndef PROJEKT_POOSWEEPER_H_
 #define PROJEKT_POOSWEEPER_H_
 
+#include <stdlib.h>
+
 class PooSweeper {
  public:
   // Constructor, used to prepare display etc

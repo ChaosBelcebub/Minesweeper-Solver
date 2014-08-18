@@ -3,6 +3,8 @@
 
 #include <ncurses.h>
 #include "./PooSweeper.h"
+#include "./PooSweeperStateBase.h"
+#include "./PooSweeperDisplayBase.h"
 
 // _____________________________________________________________________________
 PooSweeper::PooSweeper() {
@@ -15,6 +17,10 @@ PooSweeper::PooSweeper() {
 
 // _____________________________________________________________________________
 void PooSweeper::play() {
+  POO->initialize(5, 5, 5);
+  while (POO->status() == 0) {
+    DISPLAY->show(POO);
+  }
 }
 
 // _____________________________________________________________________________
