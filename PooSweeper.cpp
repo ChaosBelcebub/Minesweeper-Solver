@@ -1,4 +1,4 @@
-// Copyright 2014, University of Freiburg,
+1// Copyright 2014, University of Freiburg,
 // Author: Michael Kotzjan
 
 #include <ncurses.h>

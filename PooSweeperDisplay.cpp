@@ -25,7 +25,7 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
           printf("\x1b[0m");
           break;
         case PooSweeperStateBase::REVEALED_POO:
-          printf("\x1b[32m");
+          printf("\x1b[0;32m");
           printf("\u2601");
           printf("\x1b[0m");
           break;
@@ -38,7 +38,7 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
           printf("\x1b[0m");
           break;
         case PooSweeperStateBase::REVEALED_TWO:
-          printf("\x1b[32;1m");
+          printf("\x1b[1;32m");
           printf("2");
           printf("\x1b[0m");
           break;
