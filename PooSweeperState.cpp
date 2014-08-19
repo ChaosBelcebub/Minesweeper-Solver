@@ -80,6 +80,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     }
     CellInfoStorage[move.row][move.col] = CellInfo(countPoo);
     ++_numRevealed;
+    if (countPoo == 0) { autoReveal(move.row, move.col); }
     return;
 
   } else if (move.type == PooSweeperMove::TOGGLE_MARK) {
@@ -151,39 +152,28 @@ size_t PooSweeperState::numRevealed() const { return _numRevealed; }
 size_t PooSweeperState::numMarked() const { return _numMarked; }
 
 // _____________________________________________________________________________
-void PooSweeperState::autoReveal() {
-  while (true) {
-    bool tmp = false;
-    size_t posRow;
-    size_t posCol;
-    // Iterate throug the hole field
-    for (int i = 0; i < _numRows; ++i) {
-      for (int j = 0; j < _numCols; ++j) {
-        // Test for cell without poos near by
-        if (CellInfoStorage[i][j] == REVEALED_ZERO) {
-          tmp = true;
-          // Iterate throug all fields around the position
-          for (int x = -1; x < 2; ++x) {
-            for (int y = -1; y < 2; ++y) {
-              posRow = i + x;
-              posCol = j + y;
-              // Reveal the position
-              if (posRow >= 0 && posCol >= 0 && posRow < _numRows &&
-                  posCol < _numCols) {
-                if (CellInfoStorage[posRow][posCol] == UNREVEALED) {
-                  PooSweeperMove autoReveal;
-                  autoReveal.row = posRow;
-                  autoReveal.col = posCol;
-                  autoReveal.type = PooSweeperMove::REVEAL;
-                  applyMove(autoReveal);
-                }
-              }
-            }
+void PooSweeperState::autoReveal(size_t rowIndex, size_t colIndex) {
+  size_t posRow;
+  size_t posCol;
+  if (CellInfoStorage[rowIndex][colIndex] == REVEALED_ZERO) {
+  // Iterate throug all fields around the position
+    for (int x = -1; x < 2; ++x) {
+      for (int y = -1; y < 2; ++y) {
+        posRow = rowIndex + x;
+        posCol = colIndex + y;
+        // Reveal the position
+        if (posRow >= 0 && posCol >= 0 && posRow < _numRows &&
+         posCol < _numCols) {
+          if (CellInfoStorage[posRow][posCol] == UNREVEALED) {
+            PooSweeperMove autoReveal;
+            autoReveal.row = posRow;
+            autoReveal.col = posCol;
+            autoReveal.type = PooSweeperMove::REVEAL;
+            applyMove(autoReveal);
           }
         }
       }
     }
-    if (tmp != true) { break; }
   }
 }
 

@@ -59,7 +59,7 @@ class PooSweeperState : public PooSweeperStateBase{
   FRIEND_TEST(PooSweeperStateTest, initialize);
 
   // Reveal more fields automaticly if possible
-  void autoReveal();
+  void autoReveal(size_t rowIndex, size_t colIndex);
 
   // Check for a poo on given position
   bool checkPoo(size_t rowIndex, size_t colIndex) const;
