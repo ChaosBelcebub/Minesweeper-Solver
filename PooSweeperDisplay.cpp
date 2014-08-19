@@ -42,6 +42,36 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
           printf("2");
           printf("\x1b[0m");
           break;
+        case PooSweeperStateBase::REVEALED_THREE:
+          printf("\x1b[32;1m");
+          printf("3");
+          printf("\x1b[0m");
+          break;
+        case PooSweeperStateBase::REVEALED_FOUR:
+          printf("\x1b[32;1m");
+          printf("4");
+          printf("\x1b[0m");
+          break;
+        case PooSweeperStateBase::REVEALED_FIVE:
+          printf("\x1b[32;1m");
+          printf("5");
+          printf("\x1b[0m");
+          break;
+        case PooSweeperStateBase::REVEALED_SIX:
+          printf("\x1b[32;1m");
+          printf("6");
+          printf("\x1b[0m");
+          break;
+        case PooSweeperStateBase::REVEALED_SEVEN:
+          printf("\x1b[32;1m");
+          printf("7");
+          printf("\x1b[0m");
+          break;
+        case PooSweeperStateBase::REVEALED_EIGHT:
+          printf("\x1b[32;1m");
+          printf("8");
+          printf("\x1b[0m");
+          break;
       }
     }
   }
