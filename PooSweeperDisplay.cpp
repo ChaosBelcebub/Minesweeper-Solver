@@ -20,6 +20,7 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
           break;
         case PooSweeperStateBase::MARKED:
           printf("\x1b[7m");
+          printf("\x1b[41m");
           printf("\u2691");
           printf("\x1b[0m");
           break;
