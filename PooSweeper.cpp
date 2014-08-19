@@ -1,4 +1,4 @@
-1// Copyright 2014, University of Freiburg,
+// Copyright 2014, University of Freiburg,
 // Author: Michael Kotzjan
 
 #include <ncurses.h>
@@ -42,14 +42,17 @@ void PooSweeper::play() {
             clear();
             POO->initialize(9, 9, 10);
             initialize = false;
+            continue;
           } else if (mouseAction.y == 7) {
             clear();
             POO->initialize(16, 16, 40);
             initialize = false;
+            continue;
           } else if (mouseAction.y == 9) {
             clear();
             POO->initialize(16, 30, 99);
             initialize = false;
+            continue;
           }
         } else {
           DISPLAY->show(POO);
