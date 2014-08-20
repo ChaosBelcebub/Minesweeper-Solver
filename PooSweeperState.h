@@ -63,6 +63,9 @@ class PooSweeperState : public PooSweeperStateBase{
 
   // Check for a poo on given position
   bool checkPoo(size_t rowIndex, size_t colIndex) const;
+
+  // Reveal all poos at the end of an game
+  void revealPoos();
 };
 
 #endif  // PROJEKT_POOSWEEPERSTATE_H_

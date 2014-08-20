@@ -37,9 +37,20 @@ void PooSweeper::play() {
             move.type = PooSweeperMove::REVEAL;
             POO->applyMove(move);
           }
+        } else if (mouseAction.bstate & BUTTON_SHIFT) {
+          if (mouseAction.y < POO->numRows() + 1 &&
+              mouseAction.x < POO->numCols() + 1) {
+            PooSweeperMove move;
+            move.col = mouseAction.x;
+            move.row = mouseAction.y;
+            move.type = PooSweeperMove::TOGGLE_MARK;
+            POO->applyMove(move);
+          }
         }
       }
     }
+    DISPLAY->show(POO);
+    endScreen();
   }
 }
 
@@ -57,14 +68,8 @@ void PooSweeper::startScreen() {
     keypad(stdscr, TRUE);
     size_t ch = getch();
     if (getmouse(&start) == OK) {
-      mvprintw(11, 2, "success");
-      refresh();
       if (start.bstate & BUTTON1_CLICKED) {
-        mvprintw(12, 2, "success2");
-        refresh();
         if (start.y == 5) {
-          mvprintw(13, 2, "beginner success");
-          refresh();
           _rows = 9;
           _cols = 9;
           _poos = 10;
@@ -86,7 +91,17 @@ void PooSweeper::startScreen() {
 }
 
 // _____________________________________________________________________________
-void PooSweeper::endScreen() {}
+void PooSweeper::endScreen() {
+  while (true) {
+    int end = getch();
+    mvprintw(_rows / 2, _cols + 2, "You've lost");
+    mvprintw((_rows / 2) + 1, _cols + 2, "Do you want to play again? [y/n]");
+    if (end == 'y') break;
+    if (end == 'n') exit(1);
+    refresh();
+  }
+  clear();
+}
 // _____________________________________________________________________________
 PooSweeper::~PooSweeper() {
   endwin();
