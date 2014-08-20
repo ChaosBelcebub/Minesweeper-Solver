@@ -73,8 +73,11 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
       for (int y = -1; y < 2; ++y) {
         posRow = move.row + x;
         posCol = move.col + y;
-        if (CellInfoPoo[posRow][posCol] == POO) {
-          ++countPoo;
+        if (posRow >= 0 && posCol >= 0 && posRow < _numRows &&
+          posCol < _numCols) {
+          if (CellInfoPoo[posRow][posCol] == POO) {
+            ++countPoo;
+          }
         }
       }
     }
