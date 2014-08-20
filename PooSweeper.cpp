@@ -19,9 +19,10 @@ PooSweeper::PooSweeper() {
 void PooSweeper::play() {
   while (true) {
     startScreen();
-    _initialize = false;
+    clear();
     POO->initialize(_rows, _cols, _poos);
     while (POO->status() == PooSweeperStateBase::ONGOING) {
+      DISPLAY->show(POO);
       MEVENT mouseAction;
       mousemask(ALL_MOUSE_EVENTS, NULL);
       keypad(stdscr, TRUE);
@@ -44,20 +45,26 @@ void PooSweeper::play() {
 
 // _____________________________________________________________________________
 void PooSweeper::startScreen() {
-  MEVENT start;
-  mousemask(ALL_MOUSE_EVENTS, NULL);
-  keypad(stdscr, TRUE);
   while (true) {
-    printf("test");
-    mvprintw(1, 2, "PooSweeper\n\n");
-    mvprintw(3, 1, "Choose Difficulty:\n\n");
-    mvprintw(5, 2, "Beginner\n\n");
-    mvprintw(7, 2, "Intermediate\n\n");
+    mvprintw(1, 2, "PooSweeper");
+    mvprintw(3, 1, "Choose Difficulty:");
+    mvprintw(5, 2, "Beginner");
+    mvprintw(7, 2, "Intermediate");
     mvprintw(9, 2, "Expert");
-    printf("test done");
+    refresh();
+    MEVENT start;
+    mousemask(ALL_MOUSE_EVENTS, NULL);
+    keypad(stdscr, TRUE);
+    size_t ch = getch();
     if (getmouse(&start) == OK) {
+      mvprintw(11, 2, "success");
+      refresh();
       if (start.bstate & BUTTON1_CLICKED) {
+        mvprintw(12, 2, "success2");
+        refresh();
         if (start.y == 5) {
+          mvprintw(13, 2, "beginner success");
+          refresh();
           _rows = 9;
           _cols = 9;
           _poos = 10;
