@@ -18,6 +18,13 @@ class PooSweeper {
   ~PooSweeper();
 
  private:
+  // Display some starting informations
+  void startScreen();
+
+  // Display informations if the game ends
+  void endScreen();
+
+  bool _initialize;
   size_t _rows;
   size_t _cols;
   size_t _poos;

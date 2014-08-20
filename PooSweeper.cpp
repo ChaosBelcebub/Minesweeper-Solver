@@ -17,45 +17,17 @@ PooSweeper::PooSweeper() {
 
 // _____________________________________________________________________________
 void PooSweeper::play() {
-  bool initialize = true;
   while (true) {
-    if (initialize == true) {
-      printf("\x1b[%d;%dH", 2, 4);
-      printf("PooSweeper");
-      printf("\x1b[%d;%dH", 4, 2);
-      printf("Choose Difficulty:");
-      printf("\x1b[%d;%dH", 6, 2);
-      printf("Beginner");
-      printf("\x1b[%d;%dH", 8, 2);
-      printf("Advanced");
-      printf("\x1b[%d;%dH", 10, 2);
-      printf("Professional");
-    }
-    MEVENT mouseAction;
-    mousemask(ALL_MOUSE_EVENTS, NULL);
-    keypad(stdscr, TRUE);
-    size_t keycode = getch();
-    if (getmouse(&mouseAction) == OK) {
-      if (mouseAction.bstate & BUTTON1_CLICKED) {
-        if (initialize == true) {
-          if (mouseAction.y == 5) {
-            clear();
-            POO->initialize(9, 9, 10);
-            initialize = false;
-            continue;
-          } else if (mouseAction.y == 7) {
-            clear();
-            POO->initialize(16, 16, 40);
-            initialize = false;
-            continue;
-          } else if (mouseAction.y == 9) {
-            clear();
-            POO->initialize(16, 30, 99);
-            initialize = false;
-            continue;
-          }
-        } else {
-          DISPLAY->show(POO);
+    startScreen();
+    _initialize = false;
+    POO->initialize(_rows, _cols, _poos);
+    while (POO->status() == PooSweeperStateBase::ONGOING) {
+      MEVENT mouseAction;
+      mousemask(ALL_MOUSE_EVENTS, NULL);
+      keypad(stdscr, TRUE);
+      size_t keycode = getch();
+      if (getmouse(&mouseAction) == OK) {
+        if (mouseAction.bstate & BUTTON1_CLICKED) {
           if (mouseAction.y < POO->numRows() + 1 &&
               mouseAction.x < POO->numCols() + 1) {
             PooSweeperMove move;
@@ -70,6 +42,44 @@ void PooSweeper::play() {
   }
 }
 
+// _____________________________________________________________________________
+void PooSweeper::startScreen() {
+  MEVENT start;
+  mousemask(ALL_MOUSE_EVENTS, NULL);
+  keypad(stdscr, TRUE);
+  while (true) {
+    printf("test");
+    mvprintw(1, 2, "PooSweeper\n\n");
+    mvprintw(3, 1, "Choose Difficulty:\n\n");
+    mvprintw(5, 2, "Beginner\n\n");
+    mvprintw(7, 2, "Intermediate\n\n");
+    mvprintw(9, 2, "Expert");
+    printf("test done");
+    if (getmouse(&start) == OK) {
+      if (start.bstate & BUTTON1_CLICKED) {
+        if (start.y == 5) {
+          _rows = 9;
+          _cols = 9;
+          _poos = 10;
+          break;
+        } else if (start.y == 7) {
+          _rows = 16;
+          _cols = 16;
+          _poos = 40;
+          break;
+        } else if (start.y == 9) {
+          _rows = 16;
+          _cols = 30;
+          _poos = 99;
+          break;
+        }
+      }
+    }
+  }
+}
+
+// _____________________________________________________________________________
+void PooSweeper::endScreen() {}
 // _____________________________________________________________________________
 PooSweeper::~PooSweeper() {
   endwin();
