@@ -1,10 +1,13 @@
 // Copyright 2014, University of Freiburg.
 // Michael Kotzjan
 
-#include "./PooSweeper.h"
+#include "./PooSweeperMenu.h"
 
 // Main function
 int main(int argc, char** argv) {
-  PooSweeper pooSweeper;
-  pooSweeper.play();
+  PooSweeperMenu menu;
+  while (true) {
+    menu.startScreen();
+    menu.endScreen();
+  }
 }

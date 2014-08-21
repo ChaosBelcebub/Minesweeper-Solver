@@ -7,22 +7,11 @@
 #include "./PooSweeperDisplayBase.h"
 
 // _____________________________________________________________________________
-PooSweeper::PooSweeper() {
-  initscr();
-  cbreak();
-  noecho();
-  curs_set(false);
-  nodelay(stdscr, true);
-}
-
-// _____________________________________________________________________________
-void PooSweeper::play() {
+void PooSweeper::play(int rows, int cols, int poos) {
   while (true) {
-    startScreen();
-    clear();
-    POO->initialize(_rows, _cols, _poos);
+    POO->initialize(rows, cols, poos);
+    DISPLAY->show(POO);
     while (POO->status() == PooSweeperStateBase::ONGOING) {
-      DISPLAY->show(POO);
       MEVENT mouseAction;
       mousemask(ALL_MOUSE_EVENTS, NULL);
       keypad(stdscr, TRUE);
@@ -47,14 +36,8 @@ void PooSweeper::play() {
             POO->applyMove(move);
           }
         }
+        DISPLAY->show(POO);
       }
     }
-    DISPLAY->show(POO);
-    endScreen();
   }
-}
-
-// _____________________________________________________________________________
-PooSweeper::~PooSweeper() {
-  endwin();
 }

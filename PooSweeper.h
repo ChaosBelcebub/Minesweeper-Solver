@@ -12,15 +12,10 @@ class PooSweeper {
   PooSweeper();
 
   // Play the game!
-  void play();
+  void play(int rows, int cols, int poos);
 
   // Destructor
   ~PooSweeper();
-
- private:
-  size_t _rows;
-  size_t _cols;
-  size_t _poos;
 };
 
 #endif  // PROJEKT_POOSWEEPER_H_

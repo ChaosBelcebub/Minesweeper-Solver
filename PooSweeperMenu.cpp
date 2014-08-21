@@ -1,8 +1,21 @@
 // Copyright 2014, University of Freiburg
 // Author: Michael Kotzjan
 
+#include "./PooSweeperMenu.h"
+#include "./PooSweeper.h"
+#include <ncurses.h>
+
 // _____________________________________________________________________________
-void PooSweeper::startScreen() {
+PooSweeperMenu::PooSweeperMenu() {
+  initscr();
+  cbreak();
+  noecho();
+  curs_set(false);
+  nodelay(stdscr, true);
+}
+
+// _____________________________________________________________________________
+void PooSweeperMenu::startScreen() {
   while (true) {
     mvprintw(1, 2, "PooSweeper");
     mvprintw(3, 1, "Choose Difficulty:");
@@ -32,20 +45,27 @@ void PooSweeper::startScreen() {
           _poos = 99;
           break;
         }
+        PooSweeper pooSweeper;
+        pooSweeper.play(_rows, _cols, _poos);
       }
     }
   }
 }
 
 // _____________________________________________________________________________
-void PooSweeper::endScreen() {
+void PooSweeperMenu::endScreen() {
   while (true) {
     int end = getch();
     mvprintw(_rows / 2, _cols + 2, "You've lost");
     mvprintw((_rows / 2) + 1, _cols + 2, "Do you want to play again? [y/n]");
-    if (end == 'y') break;
+    if (end == 'y') continue;
     if (end == 'n') exit(1);
     refresh();
   }
   clear();
+}
+
+// _____________________________________________________________________________
+PooSweeperMenu::~PooSweeperMenu() {
+  endwin();
 }
