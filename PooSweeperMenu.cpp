@@ -45,11 +45,11 @@ void PooSweeperMenu::startScreen() {
           _poos = 99;
           break;
         }
-        PooSweeper pooSweeper;
-        pooSweeper.play(_rows, _cols, _poos);
       }
     }
   }
+  PooSweeper pooSweeper;
+  pooSweeper.play(_rows, _cols, _poos);
 }
 
 // _____________________________________________________________________________
