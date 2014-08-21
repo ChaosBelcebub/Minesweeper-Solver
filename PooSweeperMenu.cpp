@@ -1,9 +1,9 @@
 // Copyright 2014, University of Freiburg
 // Author: Michael Kotzjan
 
+#include <ncurses.h>
 #include "./PooSweeperMenu.h"
 #include "./PooSweeper.h"
-#include <ncurses.h>
 
 // _____________________________________________________________________________
 PooSweeperMenu::PooSweeperMenu() {
