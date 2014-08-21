@@ -8,14 +8,8 @@
 
 class PooSweeper {
  public:
-  // Constructor, used to prepare display etc
-  PooSweeper();
-
   // Play the game!
   void play(int rows, int cols, int poos);
-
-  // Destructor
-  ~PooSweeper();
 };
 
 #endif  // PROJEKT_POOSWEEPER_H_
