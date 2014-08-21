@@ -48,6 +48,7 @@ void PooSweeperMenu::startScreen() {
       }
     }
   }
+  clear();
   PooSweeper pooSweeper;
   pooSweeper.play(_rows, _cols, _poos);
 }
