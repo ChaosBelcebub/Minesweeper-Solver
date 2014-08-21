@@ -48,7 +48,6 @@ void PooSweeperMenu::startScreen() {
       }
     }
   }
-  clear();
   PooSweeper pooSweeper;
   pooSweeper.play(_rows, _cols, _poos);
 }
@@ -56,12 +55,12 @@ void PooSweeperMenu::startScreen() {
 // _____________________________________________________________________________
 void PooSweeperMenu::endScreen() {
   while (true) {
-    int end = getch();
     mvprintw(_rows / 2, _cols + 2, "You've lost");
     mvprintw((_rows / 2) + 1, _cols + 2, "Do you want to play again? [y/n]");
-    if (end == 'y') continue;
-    if (end == 'n') exit(1);
     refresh();
+    int end = getch();
+    if (end == 'y') break;
+    if (end == 'n') exit(1);
   }
   clear();
 }
