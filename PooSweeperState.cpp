@@ -29,6 +29,9 @@ void PooSweeperState::initialize(
 
   size_t pooRow;
   size_t pooCol;
+  // Clear vector in case of last game
+  CellInfoStorage.clear();
+  CellInfoPoo.clear();
   // Set game to unrevealed and poos to no poos
   CellInfoStorage.resize(_numRows);
   CellInfoPoo.resize(_numRows);
