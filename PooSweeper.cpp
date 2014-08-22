@@ -9,8 +9,8 @@
 // _____________________________________________________________________________
 void PooSweeper::play(int rows, int cols, int poos) {
   POO->initialize(rows, cols, poos);
-  DISPLAY->show(POO);
   while (POO->status() == PooSweeperStateBase::ONGOING) {
+    DISPLAY->show(POO);
     MEVENT mouseAction;
     mousemask(ALL_MOUSE_EVENTS, NULL);
     keypad(stdscr, TRUE);
