@@ -3,6 +3,7 @@
 
 #include <ncurses.h>
 #include "./PooSweeperMenu.h"
+#include "./PooSweeperStateBase.h"
 #include "./PooSweeper.h"
 
 // _____________________________________________________________________________
@@ -12,6 +13,7 @@ PooSweeperMenu::PooSweeperMenu() {
   noecho();
   curs_set(false);
   nodelay(stdscr, true);
+  exit = false;
 }
 
 // _____________________________________________________________________________
@@ -56,12 +58,19 @@ void PooSweeperMenu::startScreen() {
 // _____________________________________________________________________________
 void PooSweeperMenu::endScreen() {
   while (true) {
-    mvprintw(_rows / 2, _cols + 2, "You've lost");
+    if (POO->status() == PooSweeperStateBase::WON) {
+      mvprintw(_rows / 2, _cols + 2, "You've won!");
+    } else {
+      mvprintw(_rows / 2, _cols + 2, "You've lost");
+    }
     mvprintw((_rows / 2) + 1, _cols + 2, "Do you want to play again? [y/n]");
     refresh();
     int end = getch();
     if (end == 'y') break;
-    if (end == 'n') exit(1);
+    if (end == 'n') {
+      exit = true;
+      break;
+    }
   }
   clear();
 }

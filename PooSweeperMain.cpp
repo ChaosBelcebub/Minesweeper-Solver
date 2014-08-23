@@ -9,5 +9,6 @@ int main(int argc, char** argv) {
   while (true) {
     menu.startScreen();
     menu.endScreen();
+    if (menu.exit == true) break;
   }
 }

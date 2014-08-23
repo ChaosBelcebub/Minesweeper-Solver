@@ -20,6 +20,8 @@ class PooSweeperMenu{
   // Destructor
   ~PooSweeperMenu();
 
+  bool exit;
+
  private:
   // The informations from the menu
   size_t _rows;
