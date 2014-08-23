@@ -2,6 +2,9 @@
 // Author: Michael Kotzjan
 
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <ncurses.h>
 #include "./PooSweeperDisplay.h"
 
 PooSweeperDisplay display;
@@ -75,4 +78,8 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
       }
     }
   }
+  // std::stringstream ss;
+  // ss << "Unrevealed: " << state->numRevealed();
+  // std::string myString = ss.str();
+  // mvprintw(state->numRows() + 2, 2, myString.c_str());
 }
