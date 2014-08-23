@@ -78,8 +78,10 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
       }
     }
   }
-  // std::stringstream ss;
-  // ss << "Unrevealed: " << state->numRevealed();
-  // std::string myString = ss.str();
-  // mvprintw(state->numRows() + 2, 2, myString.c_str());
+  printf("\x1b[%d;%dH", state->numRows() + 2, 2);
+  printf("Revealed: %u", state->numRevealed());
+  printf("\x1b[%d;%dH", state->numRows() + 3, 2);
+  printf("Marked: %u", state->numMarked());
+  // mvprintw(state->numRows() + 2, 2, "Revealed: %u", state->numRevealed());
+  // refresh();
 }
