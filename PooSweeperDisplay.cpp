@@ -81,7 +81,7 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
   printf("\x1b[%d;%dH", state->numRows() + 2, 2);
   printf("Revealed: %u", state->numRevealed());
   printf("\x1b[%d;%dH", state->numRows() + 3, 2);
-  printf("Marked: %u", state->numMarked());
+  printf("Marked: %u   ", state->numMarked());
   // mvprintw(state->numRows() + 2, 2, "Revealed: %u", state->numRevealed());
   // refresh();
 }
