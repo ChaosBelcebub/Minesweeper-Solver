@@ -1,11 +1,11 @@
 // Copyright 2014, University of Freiburg,
 // Author: Michael Kotzjan
 
+#include "./PooSweeperDisplay.h"
+#include <ncurses.h>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <ncurses.h>
-#include "./PooSweeperDisplay.h"
 
 PooSweeperDisplay display;
 PooSweeperDisplayBase* DISPLAY = &display;
