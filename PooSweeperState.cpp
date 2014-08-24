@@ -195,6 +195,17 @@ bool PooSweeperState::checkPoo(size_t rowIndex, size_t colIndex) const {
 }
 
 // _____________________________________________________________________________
+bool PooSweeperState::wonGame() {
+  for (int i = 0; i < _numRows; ++i) {
+    for (int j = 0; j < _numCols; ++j) {
+      if (CellInfoPoo[i][j] == POO && CellInfoStorage[i][j] == MARKED) {
+        _status = WON;
+      }
+    }
+  }
+}
+
+// _____________________________________________________________________________
 void PooSweeperState::revealPoos() {
   for (int i = 0; i < _numRows; ++i) {
     for (int j = 0; j < _numCols; ++j) {
