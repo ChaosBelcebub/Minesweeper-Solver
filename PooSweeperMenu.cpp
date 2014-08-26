@@ -24,6 +24,7 @@ void PooSweeperMenu::startScreen() {
     mvprintw(5, 2, "Beginner");
     mvprintw(7, 2, "Intermediate");
     mvprintw(9, 2, "Expert");
+    mvprintw(11, 2, "Custom");
     refresh();
     MEVENT start;
     mousemask(ALL_MOUSE_EVENTS, NULL);
