@@ -2,6 +2,7 @@
 // Author: Michael Kotzjan
 
 #include <ncurses.h>
+#include <iostream>
 #include "./PooSweeperMenu.h"
 #include "./PooSweeperStateBase.h"
 #include "./PooSweeper.h"
@@ -24,6 +25,7 @@ void PooSweeperMenu::startScreen() {
     mvprintw(5, 2, "Beginner");
     mvprintw(7, 2, "Intermediate");
     mvprintw(9, 2, "Expert");
+    mvprintw(11, 2, "Custom");
     refresh();
     MEVENT start;
     mousemask(ALL_MOUSE_EVENTS, NULL);
@@ -45,6 +47,19 @@ void PooSweeperMenu::startScreen() {
           _rows = 16;
           _cols = 30;
           _poos = 99;
+          break;
+        } else if (start.y == 11) {
+          clear();
+          refresh();
+          mvprintw(5, 2, "Enter x-size:");
+          refresh();
+          std::cin >> _rows;
+          mvprintw(6, 2, "Enter y-size:");
+          refresh();
+          std::cin >> _cols;
+          mvprintw(7, 2, "Enter number of poos:");
+          refresh();
+          std::cin >> _poos;
           break;
         }
       }
