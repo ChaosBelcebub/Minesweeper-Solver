@@ -333,4 +333,71 @@ TEST(PooSweeperStateTest, applyMove) {
     pss.applyMove(move);
     ASSERT_EQ(8, pss.CellInfoStorage[1][1]);
   }
+  {
+    // Check if a field change when its not unrevealed
+    PooSweeperState pss;
+    pss._numRows = 3;
+    pss._numCols = 3;
+    pss._numPoos = 1;
+    pss._numRevealed = 0;
+    pss._numMarked = 0;
+    pss._status = PooSweeperStateBase::ONGOING;
+    pss.CellInfoStorage.clear();
+    pss.CellInfoPoo.clear();
+    pss.CellInfoStorage.resize(3);
+    pss.CellInfoPoo.resize(3);
+    for (int i = 0; i < 3; ++i) {
+      for (int j = 0; j < 3; ++j) {
+        pss.CellInfoStorage[i].push_back(PooSweeperStateBase::REVEALED_ONE);
+        pss.CellInfoPoo[i].push_back(PooSweeperState::NO_POO);
+      }
+    }
+    PooSweeperMove move;
+    move.row = 1;
+    move.col = 1;
+    move.type = PooSweeperMove::REVEAL;
+    pss.applyMove(move);
+    // Nothing should change
+    for (int i = 0; i < 3; ++i) {
+      for (int j = 0; j < 3; ++j) {
+        ASSERT_EQ(1, pss.CellInfoStorage[i][j]);
+      }
+    }
+  }
+  {
+    // Check togglemark
+    PooSweeperState pss;
+    pss._numRows = 3;
+    pss._numCols = 3;
+    pss._numPoos = 1;
+    pss._numRevealed = 0;
+    pss._numMarked = 0;
+    pss._status = PooSweeperStateBase::ONGOING;
+    pss.CellInfoStorage.clear();
+    pss.CellInfoPoo.clear();
+    pss.CellInfoStorage.resize(3);
+    pss.CellInfoPoo.resize(3);
+    for (int i = 0; i < 3; ++i) {
+      for (int j = 0; j < 3; ++j) {
+        pss.CellInfoStorage[i].push_back(PooSweeperStateBase::UNREVEALED);
+        pss.CellInfoPoo[i].push_back(PooSweeperState::NO_POO);
+      }
+    }
+    PooSweeperMove move;
+    move.row = 1;
+    move.col = 1;
+    move.type = PooSweeperMove::TOGGLE_MARK;
+    pss.applyMove(move);
+    ASSERT_EQ(-2, pss.CellInfoStorage[1][1]);
+    ASSERT_EQ(0, pss.numRevealed());
+    ASSERT_EQ(1, pss.numMarked());
+    PooSweeperMove moveback;
+    moveback.row = 1;
+    moveback.col = 1;
+    moveback.type = PooSweeperMove::TOGGLE_MARK;
+    pss.applyMove(moveback);
+    ASSERT_EQ(-1, pss.CellInfoStorage[1][1]);
+    ASSERT_EQ(0, pss.numRevealed());
+    ASSERT_EQ(0, pss.numMarked());
+  }
 }
