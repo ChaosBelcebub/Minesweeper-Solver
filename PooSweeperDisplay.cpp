@@ -12,13 +12,23 @@ PooSweeperDisplayBase* DISPLAY = &display;
 
 // ___________________________________________________________________________
 void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
+  start_color();
+  init_pair(0, COLOR_BLACK, COLOR_BLACK);
+  init_pair(1, COLOR_BLUE, COLOR_BLACK);
+  init_pair(2, COLOR_GREEN, COLOR_BLACK);
+  init_pair(3, COLOR_RED, COLOR_BLACK);
+  init_pair(4, COLOR_BLUE, COLOR_BLACK);
+  init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(6, COLOR_CYAN, COLOR_BLACK);
+  init_pair(7, COLOR_WHITE, COLOR_BLACK);
+  init_pair(8, COLOR_YELLOW, COLOR_BLACK);
   for (int i = 0; i < state->numRows(); ++i) {
     for (int j = 0; j < state->numCols(); ++j) {
       switch (state->getCellInfo(i, j)) {
         case PooSweeperStateBase::UNREVEALED:
           mvprintw(i, j, "?");
           // printf("\x1b[7m");
-          // printf("?");
+          // printf("?")r
           // printf("\x1b[0m");
           break;
         case PooSweeperStateBase::MARKED:
@@ -35,10 +45,14 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
           // printf("\x1b[0m");
           break;
         case PooSweeperStateBase::REVEALED_ZERO:
+          attron(COLOR_PAIR(0));
           mvprintw(i, j, " ");
+          attroff(COLOR_PAIR(0));
           break;
         case PooSweeperStateBase::REVEALED_ONE:
+          attron(COLOR_PAIR(1));
           mvprintw(i, j, "1");
+          attroff(COLOR_PAIR(1));
           break;
         case PooSweeperStateBase::REVEALED_TWO:
           mvprintw(i, j, "2");
