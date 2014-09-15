@@ -42,13 +42,6 @@ void PooSweeperState::initialize(
       CellInfoPoo[i].push_back(NO_POO);
     }
   }
-  // Only for debugging
-  // CellInfoStorage[0][0] = MARKED;
-  // CellInfoStorage[0][1] = REVEALED_POO;
-  // CellInfoStorage[1][0] = REVEALED_TWO;
-  // CellInfoStorage[2][0] = REVEALED_ONE;
-  // CellInfoStorage[3][0] = REVEALED_ZERO;
-
   // Initialize random seed
   unsigned int seed = time(NULL);
 
