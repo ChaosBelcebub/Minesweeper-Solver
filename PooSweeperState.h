@@ -59,6 +59,7 @@ class PooSweeperState : public PooSweeperStateBase{
   FRIEND_TEST(PooSweeperStateTest, initialize);
   FRIEND_TEST(PooSweeperStateTest, applyMove);
   FRIEND_TEST(PooSweeperStateTest, autoReveal);
+  FRIEND_TEST(PooSweeperStateTest, checkPoo);
 
   // Reveal more fields automaticly if possible
   void autoReveal(size_t rowIndex, size_t colIndex);

@@ -466,3 +466,37 @@ TEST(PooSweeperStateTest, autoReveal) {
   ASSERT_EQ(1, pss.CellInfoStorage[4][3]);
   ASSERT_EQ(-1, pss.CellInfoStorage[4][4]);
 }
+
+TEST(PooSweeperStateTest, checkPoo) {
+  // initialize a field with four poos
+  PooSweeperState pss;
+  pss._numRows = 3;
+  pss._numCols = 3;
+  pss._numPoos = 1;
+  pss._numRevealed = 0;
+  pss._numMarked = 0;
+  pss._status = PooSweeperStateBase::ONGOING;
+  pss.CellInfoStorage.clear();
+  pss.CellInfoPoo.clear();
+  pss.CellInfoStorage.resize(3);
+  pss.CellInfoPoo.resize(3);
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      pss.CellInfoStorage[i].push_back(PooSweeperStateBase::UNREVEALED);
+      pss.CellInfoPoo[i].push_back(PooSweeperState::NO_POO);
+    }
+  }
+  pss.CellInfoPoo[0][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[1][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[2][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[0][1] = PooSweeperState::POO;
+  ASSERT_EQ(true, pss.checkPoo(0, 0));
+  ASSERT_EQ(true, pss.checkPoo(0, 1));
+  ASSERT_EQ(false, pss.checkPoo(0, 2));
+  ASSERT_EQ(true, pss.checkPoo(1, 0));
+  ASSERT_EQ(false, pss.checkPoo(1, 1));
+  ASSERT_EQ(false, pss.checkPoo(1, 2));
+  ASSERT_EQ(true, pss.checkPoo(2, 0));
+  ASSERT_EQ(false, pss.checkPoo(2, 1));
+  ASSERT_EQ(false, pss.checkPoo(2, 2));
+}
