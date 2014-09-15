@@ -401,3 +401,68 @@ TEST(PooSweeperStateTest, applyMove) {
     ASSERT_EQ(0, pss.numMarked());
   }
 }
+
+TEST(PooSweeperStateTest, autoReveal) {
+  // Simple autoreveal test
+  PooSweeperState pss;
+  pss._numRows = 5;
+  pss._numCols = 5;
+  pss._numPoos = 4;
+  pss._numRevealed = 0;
+  pss._numMarked = 0;
+  pss._status = PooSweeperStateBase::ONGOING;
+  pss.CellInfoStorage.clear();
+  pss.CellInfoPoo.clear();
+  pss.CellInfoStorage.resize(5);
+  pss.CellInfoPoo.resize(5);
+  for (int i = 0; i < 5; ++i) {
+    for (int j = 0; j < 5; ++j) {
+      pss.CellInfoStorage[i].push_back(PooSweeperStateBase::UNREVEALED);
+      pss.CellInfoPoo[i].push_back(PooSweeperState::NO_POO);
+    }
+  }
+  // Set poos
+  pss.CellInfoPoo[0][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[0][4] = PooSweeperState::POO;
+  pss.CellInfoPoo[4][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[4][4] = PooSweeperState::POO;
+  PooSweeperMove move;
+  move.col = 2;
+  move.row = 2;
+  move.type = PooSweeperMove::REVEAL;
+  pss.applyMove(move);
+  // Check variables
+  ASSERT_EQ(21, pss.numRevealed());
+  ASSERT_EQ(0, pss.numMarked());
+  // Check field. Should be:
+  // ?1 1?
+  // 11 11
+  //
+  // 11 11
+  // ?1 1?
+  ASSERT_EQ(-1, pss.CellInfoStorage[0][0]);
+  ASSERT_EQ(1, pss.CellInfoStorage[0][1]);
+  ASSERT_EQ(0, pss.CellInfoStorage[0][2]);
+  ASSERT_EQ(1, pss.CellInfoStorage[0][3]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[0][4]);
+  ASSERT_EQ(1, pss.CellInfoStorage[1][0]);
+  ASSERT_EQ(1, pss.CellInfoStorage[1][1]);
+  ASSERT_EQ(0, pss.CellInfoStorage[1][2]);
+  ASSERT_EQ(1, pss.CellInfoStorage[1][3]);
+  ASSERT_EQ(1, pss.CellInfoStorage[1][4]);
+  ASSERT_EQ(0, pss.CellInfoStorage[2][0]);
+  ASSERT_EQ(0, pss.CellInfoStorage[2][1]);
+  ASSERT_EQ(0, pss.CellInfoStorage[2][2]);
+  ASSERT_EQ(0, pss.CellInfoStorage[2][3]);
+  ASSERT_EQ(0, pss.CellInfoStorage[2][4]);
+  ASSERT_EQ(1, pss.CellInfoStorage[3][0]);
+  ASSERT_EQ(1, pss.CellInfoStorage[3][1]);
+  ASSERT_EQ(0, pss.CellInfoStorage[3][2]);
+  ASSERT_EQ(1, pss.CellInfoStorage[3][3]);
+  ASSERT_EQ(1, pss.CellInfoStorage[3][4]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[4][0]);
+  ASSERT_EQ(1, pss.CellInfoStorage[4][1]);
+  ASSERT_EQ(0, pss.CellInfoStorage[4][2]);
+  ASSERT_EQ(1, pss.CellInfoStorage[4][3]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[4][4]);
+}
