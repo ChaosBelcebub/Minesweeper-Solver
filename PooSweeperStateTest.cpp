@@ -46,11 +46,14 @@ TEST(PooSweeperStateTest, applyMove) {
     move.row = 0;
     move.type = PooSweeperMove::REVEAL;
     pss.applyMove(move);
+    // Every field should be unrevealed zero
     for (int i = 0; i < 5; ++i) {
       for (int j = 0; j < 5; ++j) {
         ASSERT_EQ(0, pss.CellInfoStorage[i][j]);
       }
     }
+    ASSERT_EQ(25, pss.numRevealed());
+    ASSERT_EQ(0, pss.numMarked());
   }
   {
     // Only poos
@@ -76,10 +79,13 @@ TEST(PooSweeperStateTest, applyMove) {
     move.row = 0;
     move.type = PooSweeperMove::REVEAL;
     pss.applyMove(move);
+    // Every field should be an unrevealed poo
     for (int i = 0; i < 5; ++i) {
       for (int j = 0; j < 5; ++j) {
         ASSERT_EQ(-3, pss.CellInfoStorage[i][j]);
       }
     }
+  }
+  {
   }
 }

@@ -3,6 +3,7 @@
 
 #include "./PooSweeperState.h"
 #include <stdlib.h>
+#include <time.h>
 #include <vector>
 #include "./PooSweeperMove.h"
 
@@ -48,10 +49,13 @@ void PooSweeperState::initialize(
   // CellInfoStorage[2][0] = REVEALED_ONE;
   // CellInfoStorage[3][0] = REVEALED_ZERO;
 
+  // Initialize random seed
+  unsigned int seed = time(NULL);
+
   // Set poos
   for (int i = 0; i < _numPoos;) {
-    pooRow = random() % _numRows;
-    pooCol = random() % _numCols;
+    pooRow = rand_r(&seed) % _numRows;
+    pooCol = rand_r(&seed) % _numCols;
     if (CellInfoPoo[pooRow][pooCol] == NO_POO) {
       CellInfoPoo[pooRow][pooCol] = POO;
       ++i;
