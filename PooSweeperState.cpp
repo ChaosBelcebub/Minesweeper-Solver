@@ -73,7 +73,6 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
       if (CellInfoStorage[move.row][move.col] != UNREVEALED) return;
       if (checkPoo(move.row, move.col) == true) {
         CellInfoStorage[move.row][move.col] = REVEALED_POO;
-        ++_numRevealed;
         revealPoos();
         _status = LOST;
         return;
