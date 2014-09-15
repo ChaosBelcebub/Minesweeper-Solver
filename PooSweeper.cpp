@@ -25,8 +25,7 @@ void PooSweeper::play(int rows, int cols, int poos) {
           move.type = PooSweeperMove::TOGGLE_MARK;
           POO->applyMove(move);
         }
-      }
-      if (mouseAction.bstate & BUTTON1_CLICKED) {
+      } else if (mouseAction.bstate & BUTTON1_CLICKED) {
         if (mouseAction.y < POO->numRows() &&
             mouseAction.x < POO->numCols() + 1) {
           PooSweeperMove move;
