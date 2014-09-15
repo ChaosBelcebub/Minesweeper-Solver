@@ -27,7 +27,7 @@ void PooSweeper::play(int rows, int cols, int poos) {
         }
       }
       if (mouseAction.bstate & BUTTON1_CLICKED) {
-        if (mouseAction.y < POO->numRows() + 1 &&
+        if (mouseAction.y < POO->numRows() &&
             mouseAction.x < POO->numCols() + 1) {
           PooSweeperMove move;
           move.col = mouseAction.x;
