@@ -24,7 +24,6 @@ void PooSweeperMenu::startScreen() {
     mvprintw(5, 2, "Beginner");
     mvprintw(7, 2, "Intermediate");
     mvprintw(9, 2, "Expert");
-    mvprintw(11, 2, "Custom");
     refresh();
     MEVENT start;
     mousemask(ALL_MOUSE_EVENTS, NULL);
@@ -47,8 +46,6 @@ void PooSweeperMenu::startScreen() {
           _cols = 30;
           _poos = 99;
           break;
-        } else if (start.y == 11) {
-          // display custom menu with and iostream
         }
       }
     }

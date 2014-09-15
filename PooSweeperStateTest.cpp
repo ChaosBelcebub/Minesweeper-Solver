@@ -8,7 +8,7 @@
 TEST(PooSweeperStateTest, initialize) {
   PooSweeperState pss;
   pss.initialize(5, 5, 5);
-  // Check if the nuber of bombs is correct
+  // Check if the number of poos is correct
   size_t count = 0;
   for (int i = 0; i < 5; ++i) {
     for (int j = 0; j < 5; ++j) {
@@ -18,4 +18,8 @@ TEST(PooSweeperStateTest, initialize) {
   ASSERT_EQ(5, count);
   ASSERT_EQ(5, pss.numRows());
   ASSERT_EQ(5, pss.numCols());
+}
+
+// _____________________________________________________________________________
+TEST(PooSweeperStateTest, applyMove) {
 }

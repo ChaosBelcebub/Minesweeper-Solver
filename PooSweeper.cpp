@@ -16,6 +16,16 @@ void PooSweeper::play(int rows, int cols, int poos) {
     keypad(stdscr, TRUE);
     size_t keycode = getch();
     if (getmouse(&mouseAction) == OK) {
+      if (mouseAction.bstate & BUTTON_CTRL) {
+        if (mouseAction.y < POO->numRows() + 1 &&
+            mouseAction.x < POO->numCols() + 1) {
+          PooSweeperMove move;
+          move.col = mouseAction.x;
+          move.row = mouseAction.y;
+          move.type = PooSweeperMove::TOGGLE_MARK;
+          POO->applyMove(move);
+        }
+      }
       if (mouseAction.bstate & BUTTON1_CLICKED) {
         if (mouseAction.y < POO->numRows() + 1 &&
             mouseAction.x < POO->numCols() + 1) {
@@ -23,15 +33,6 @@ void PooSweeper::play(int rows, int cols, int poos) {
           move.col = mouseAction.x;
           move.row = mouseAction.y;
           move.type = PooSweeperMove::REVEAL;
-          POO->applyMove(move);
-        }
-      } else if (mouseAction.bstate & BUTTON_SHIFT) {
-        if (mouseAction.y < POO->numRows() + 1 &&
-            mouseAction.x < POO->numCols() + 1) {
-          PooSweeperMove move;
-          move.col = mouseAction.x;
-          move.row = mouseAction.y;
-          move.type = PooSweeperMove::TOGGLE_MARK;
           POO->applyMove(move);
         }
       }

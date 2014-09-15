@@ -66,6 +66,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
   size_t countPoo = 0;
 
   if (move.type == PooSweeperMove::REVEAL) {
+    if (CellInfoStorage[move.row][move.col] != UNREVEALED) return;
     if (checkPoo(move.row, move.col) == true) {
       CellInfoStorage[move.row][move.col] = REVEALED_POO;
       ++_numRevealed;
@@ -73,7 +74,6 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
       _status = LOST;
       return;
     }
-    if (CellInfoStorage[move.row][move.col] != UNREVEALED) return;
     for (int x = -1; x < 2; ++x) {
       for (int y = -1; y < 2; ++y) {
         posRow = move.row + x;
@@ -89,7 +89,6 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     CellInfoStorage[move.row][move.col] = CellInfo(countPoo);
     ++_numRevealed;
     if (countPoo == 0) { autoReveal(move.row, move.col); }
-    wonGame();
     return;
 
   } else if (move.type == PooSweeperMove::TOGGLE_MARK) {
@@ -99,8 +98,8 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
     } else if (CellInfoStorage[move.row][move.col] == MARKED) {
       CellInfoStorage[move.row][move.col] = UNREVEALED;
       --_numMarked;
-      wonGame();
     }
+    wonGame();
     return;
 
   } else if (move.type == PooSweeperMove::LEFT_RIGHT) {
@@ -198,18 +197,6 @@ bool PooSweeperState::checkPoo(size_t rowIndex, size_t colIndex) const {
 
 // _____________________________________________________________________________
 bool PooSweeperState::wonGame() {
-  // size_t unrevealed = 0;
-  // size_t rightMarked = 0;
-  // for (int i = 0; i < _numRows; ++i) {
-  //   for (int j = 0; j < _numCols; ++j) {
-  //     if (CellInfoPoo[i][j] == POO && CellInfoStorage[i][j] == MARKED) {
-  //       ++rightMarked;
-  //     }
-  //     if (CellInfoStorage[i][j] == UNREVEALED) {
-  //       ++unrevealed;
-  //     }
-  //   }
-  // }
   size_t numCells = _numRows * _numCols;
   size_t numUnrevealed = numCells - _numRevealed;
   if (_numMarked + numUnrevealed == _numPoos) _status = WON;
