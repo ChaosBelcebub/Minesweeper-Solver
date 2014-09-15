@@ -57,6 +57,7 @@ class PooSweeperState : public PooSweeperStateBase{
   std::vector<std::vector<CellInfoPoo>> CellInfoPoo;
 
   FRIEND_TEST(PooSweeperStateTest, initialize);
+  FRIEND_TEST(PooSweeperStateTest, applyMove);
 
   // Reveal more fields automaticly if possible
   void autoReveal(size_t rowIndex, size_t colIndex);

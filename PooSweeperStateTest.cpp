@@ -23,6 +23,19 @@ TEST(PooSweeperStateTest, initialize) {
 // _____________________________________________________________________________
 TEST(PooSweeperStateTest, applyMove) {
   {
+    // No poos
     PooSweeperState pss;
+    pss.CellInfoStorage.clear();
+    pss.CellInfoStorage.resize(5);
+    for (int i = 0; i < 5; ++i) {
+      for (int j = 0; j < 5; ++j) {
+        pss.CellInfoStorage[i].push_back(PooSweeperStateBase::UNREVEALED);
+      }
+    }
+    PooSweeperMove psm;
+    psm.col = 0;
+    psm.row = 0;
+    psm.type = PooSweeperMove::REVEAL;
+    // pss.applyMove(psm);
   }
 }
