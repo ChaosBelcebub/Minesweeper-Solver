@@ -22,4 +22,7 @@ TEST(PooSweeperStateTest, initialize) {
 
 // _____________________________________________________________________________
 TEST(PooSweeperStateTest, applyMove) {
+  {
+    PooSweeperState pss;
+  }
 }
