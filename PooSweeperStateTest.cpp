@@ -85,6 +85,7 @@ TEST(PooSweeperStateTest, applyMove) {
         ASSERT_EQ(-3, pss.CellInfoStorage[i][j]);
       }
     }
+    ASSERT_EQ(PooSweeperStateBase::LOST, pss._status);
     ASSERT_EQ(0, pss.numRevealed());
     ASSERT_EQ(0, pss.numMarked());
   }
@@ -499,4 +500,13 @@ TEST(PooSweeperStateTest, checkPoo) {
   ASSERT_EQ(true, pss.checkPoo(2, 0));
   ASSERT_EQ(false, pss.checkPoo(2, 1));
   ASSERT_EQ(false, pss.checkPoo(2, 2));
+}
+
+TEST(PooSweeperStateTest, wonGame) {
+  {
+  }
+  {
+  }
+  {
+  }
 }

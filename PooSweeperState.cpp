@@ -85,6 +85,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
       CellInfoStorage[move.row][move.col] = CellInfo(countPoo);
       ++_numRevealed;
       if (countPoo == 0) { autoReveal(move.row, move.col); }
+      wonGame();
       return;
 
     case PooSweeperMove::TOGGLE_MARK:
@@ -158,7 +159,8 @@ bool PooSweeperState::checkPoo(size_t rowIndex, size_t colIndex) const {
 // _____________________________________________________________________________
 bool PooSweeperState::wonGame() {
   size_t numCells = _numRows * _numCols;
-  size_t numUnrevealed = numCells - _numRevealed;
+  size_t numRevealed = _numRevealed + _numMarked;
+  size_t numUnrevealed = numCells - numRevealed;
   if (_numMarked + numUnrevealed == _numPoos) _status = WON;
 }
 
