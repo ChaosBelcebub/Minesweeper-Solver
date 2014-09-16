@@ -504,9 +504,93 @@ TEST(PooSweeperStateTest, checkPoo) {
 
 TEST(PooSweeperStateTest, wonGame) {
   {
+    PooSweeperState pss;
+    pss._numRows = 5;
+    pss._numCols = 5;
+    pss._numRevealed = 0;
+    pss._numPoos = 5;
+    pss._numMarked = 0;
+    pss._status = PooSweeperStateBase::ONGOING;
+    pss.wonGame();
+    // Game should be still ongoing
+    ASSERT_EQ(PooSweeperStateBase::ONGOING, pss._status);
+    // Reveal all fields without poo
+    pss._numRevealed = 20;
+    pss.wonGame();
+    // The Game should now be won
+    ASSERT_EQ(PooSweeperStateBase::WON, pss._status);
   }
   {
+    PooSweeperState pss;
+    pss._numRows = 5;
+    pss._numCols = 5;
+    pss._numRevealed = 0;
+    pss._numPoos = 5;
+    pss._numMarked = 0;
+    pss._status = PooSweeperStateBase::ONGOING;
+    pss.wonGame();
+    // Game should be still ongoing
+    ASSERT_EQ(PooSweeperStateBase::ONGOING, pss._status);
+    // Mark two fields, reveal all without poo
+    pss._numRevealed = 20;
+    pss._numMarked = 2;
+    pss.wonGame();
+    // The Game should now be won
+    ASSERT_EQ(PooSweeperStateBase::WON, pss._status);
   }
   {
+    PooSweeperState pss;
+    pss._numRows = 5;
+    pss._numCols = 5;
+    pss._numRevealed = 0;
+    pss._numPoos = 5;
+    pss._numMarked = 0;
+    pss._status = PooSweeperStateBase::ONGOING;
+    pss.wonGame();
+    // Game should be still ongoing
+    ASSERT_EQ(PooSweeperStateBase::ONGOING, pss._status);
+    // Mark all poos, reveal all fields without poo
+    pss._numRevealed = 20;
+    pss._numMarked = 5;
+    pss.wonGame();
+    // The Game should now be won
+    ASSERT_EQ(PooSweeperStateBase::WON, pss._status);
   }
+}
+
+TEST (PooSweeperStateTest, revealPoos) {
+  // Set a field with 5 poos
+  PooSweeperState pss;
+  pss._numRows = 3;
+  pss._numCols = 3;
+  pss._numPoos = 1;
+  pss._numRevealed = 0;
+  pss._numMarked = 0;
+  pss._status = PooSweeperStateBase::ONGOING;
+  pss.CellInfoStorage.clear();
+  pss.CellInfoPoo.clear();
+  pss.CellInfoStorage.resize(3);
+  pss.CellInfoPoo.resize(3);
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      pss.CellInfoStorage[i].push_back(PooSweeperStateBase::UNREVEALED);
+      pss.CellInfoPoo[i].push_back(PooSweeperState::NO_POO);
+    }
+  }
+  pss.CellInfoPoo[0][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[1][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[2][0] = PooSweeperState::POO;
+  pss.CellInfoPoo[0][1] = PooSweeperState::POO;
+  pss.CellInfoPoo[0][2] = PooSweeperState::POO;
+  // Reveal all poos, normaly at end of game
+  pss.revealPoos();
+  ASSERT_EQ(-3, pss.CellInfoStorage[0][0]);
+  ASSERT_EQ(-3, pss.CellInfoStorage[0][1]);
+  ASSERT_EQ(-3, pss.CellInfoStorage[0][2]);
+  ASSERT_EQ(-3, pss.CellInfoStorage[1][0]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[1][1]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[1][2]);
+  ASSERT_EQ(-3, pss.CellInfoStorage[2][0]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[2][1]);
+  ASSERT_EQ(-1, pss.CellInfoStorage[2][2]);
 }

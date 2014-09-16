@@ -56,13 +56,6 @@ class PooSweeperState : public PooSweeperStateBase{
   // Holds the position of the poos
   std::vector<std::vector<CellInfoPoo>> CellInfoPoo;
 
-  FRIEND_TEST(PooSweeperStateTest, initialize);
-  FRIEND_TEST(PooSweeperStateTest, applyMove);
-  FRIEND_TEST(PooSweeperStateTest, autoReveal);
-  FRIEND_TEST(PooSweeperStateTest, checkPoo);
-  FRIEND_TEST(PooSweeperStateTest, wonGame);
-  FRIEND_TEST(PooSweeperStateTest, revealPoos);
-
   // Reveal more fields automaticly if possible
   void autoReveal(size_t rowIndex, size_t colIndex);
 
@@ -70,10 +63,17 @@ class PooSweeperState : public PooSweeperStateBase{
   bool checkPoo(size_t rowIndex, size_t colIndex) const;
 
   // Check for won game
-  bool wonGame();
+  void wonGame();
 
   // Reveal all poos at the end of an game
   void revealPoos();
+  
+  FRIEND_TEST(PooSweeperStateTest, initialize);
+  FRIEND_TEST(PooSweeperStateTest, applyMove);
+  FRIEND_TEST(PooSweeperStateTest, autoReveal);
+  FRIEND_TEST(PooSweeperStateTest, checkPoo);
+  FRIEND_TEST(PooSweeperStateTest, wonGame);
+  FRIEND_TEST(PooSweeperStateTest, revealPoos);
 };
 
 #endif  // PROJEKT_POOSWEEPERSTATE_H_

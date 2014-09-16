@@ -157,7 +157,7 @@ bool PooSweeperState::checkPoo(size_t rowIndex, size_t colIndex) const {
 }
 
 // _____________________________________________________________________________
-bool PooSweeperState::wonGame() {
+void PooSweeperState::wonGame() {
   size_t numCells = _numRows * _numCols;
   size_t numRevealed = _numRevealed + _numMarked;
   size_t numUnrevealed = numCells - numRevealed;
