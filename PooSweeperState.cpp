@@ -61,19 +61,25 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
   size_t posRow;
   size_t posCol;
   size_t countPoo = 0;
+  // Switch for different move types
   switch (move.type) {
     case PooSweeperMove::REVEAL:
+      // Return if field is not unrevealed
       if (CellInfoStorage[move.row][move.col] != UNREVEALED) return;
+      // Check for poo and end game if needed
       if (checkPoo(move.row, move.col) == true) {
         CellInfoStorage[move.row][move.col] = REVEALED_POO;
+        // Reveal all poos at end
         revealPoos();
         _status = LOST;
         return;
       }
+      // Count the amount of poos around a field
       for (int x = -1; x < 2; ++x) {
         for (int y = -1; y < 2; ++y) {
           posRow = move.row + x;
           posCol = move.col + y;
+          // But only if the cells are inside the field
           if (posRow >= 0 && posCol >= 0 && posRow < _numRows &&
             posCol < _numCols) {
             if (CellInfoPoo[posRow][posCol] == POO) {
@@ -82,13 +88,17 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
           }
         }
       }
+      // Set the storage on this position to the amount of poos around
       CellInfoStorage[move.row][move.col] = CellInfo(countPoo);
       ++_numRevealed;
+      // Autoreveal if needed
       if (countPoo == 0) { autoReveal(move.row, move.col); }
+      // Check for change of gamestatus
       wonGame();
       return;
 
     case PooSweeperMove::TOGGLE_MARK:
+      // Simply toggle the marked cells
       if (CellInfoStorage[move.row][move.col] == UNREVEALED) {
         CellInfoStorage[move.row][move.col] = MARKED;
         ++_numMarked;
@@ -96,6 +106,7 @@ void PooSweeperState::applyMove(const PooSweeperMove& move) {
         CellInfoStorage[move.row][move.col] = UNREVEALED;
         --_numMarked;
       }
+      // Check for change of gamestatus
       wonGame();
       return;
   }
@@ -131,7 +142,7 @@ void PooSweeperState::autoReveal(size_t rowIndex, size_t colIndex) {
       for (int y = -1; y < 2; ++y) {
         posRow = rowIndex + x;
         posCol = colIndex + y;
-        // Reveal the position
+        // Reveal the position, only if its inside the field
         if (posRow >= 0 && posCol >= 0 && posRow < _numRows &&
          posCol < _numCols) {
           if (CellInfoStorage[posRow][posCol] == UNREVEALED) {
@@ -158,6 +169,7 @@ bool PooSweeperState::checkPoo(size_t rowIndex, size_t colIndex) const {
 
 // _____________________________________________________________________________
 void PooSweeperState::wonGame() {
+  // Calculate if game is won
   size_t numCells = _numRows * _numCols;
   size_t numRevealed = _numRevealed + _numMarked;
   size_t numUnrevealed = numCells - numRevealed;

@@ -67,7 +67,7 @@ class PooSweeperState : public PooSweeperStateBase{
 
   // Reveal all poos at the end of an game
   void revealPoos();
-  
+
   FRIEND_TEST(PooSweeperStateTest, initialize);
   FRIEND_TEST(PooSweeperStateTest, applyMove);
   FRIEND_TEST(PooSweeperStateTest, autoReveal);

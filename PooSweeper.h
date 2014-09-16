@@ -8,7 +8,7 @@
 
 class PooSweeper {
  public:
-  // Play the game!
+  // Methode that simple plays the game
   void play(int rows, int cols, int poos);
 };
 

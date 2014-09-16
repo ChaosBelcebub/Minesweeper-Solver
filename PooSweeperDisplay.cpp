@@ -12,6 +12,7 @@ PooSweeperDisplayBase* DISPLAY = &display;
 
 // ___________________________________________________________________________
 void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
+  // Initialize the colors for ncurses
   start_color();
   init_pair(0, COLOR_BLACK, COLOR_BLACK);
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
@@ -23,13 +24,17 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
   init_pair(7, COLOR_WHITE, COLOR_BLACK);
   init_pair(8, COLOR_YELLOW, COLOR_BLACK);
   init_pair(9, COLOR_RED, COLOR_BLACK);
+  // Draw the field
   for (int i = 0; i < state->numRows(); ++i) {
     for (int j = 0; j < state->numCols(); ++j) {
       switch (state->getCellInfo(i, j)) {
         case PooSweeperStateBase::UNREVEALED:
+          // Put some attributes on the cells with ncurses
           attron(COLOR_PAIR(0));
           attron(A_REVERSE);
+          // Ncurses way to draw on specific position
           mvprintw(i, j, "?");
+          // Turn off attributes
           attroff(A_REVERSE);
           attroff(COLOR_PAIR(0));
           break;
@@ -93,6 +98,8 @@ void PooSweeperDisplay::show(const PooSweeperStateBase* state) const {
       }
     }
   }
+  // Display additional informations on the screen
+  // Display them everytime under the field no matter the size
   mvprintw(state->numRows() + 2, 2, "Revealed: %u", state->numRevealed());
   mvprintw(state->numRows() + 3, 2, "Marked: %u   ", state->numMarked());
   mvprintw(state->numRows() + 4, 2, "Poos: %u", state->numPoos());

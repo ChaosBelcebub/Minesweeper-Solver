@@ -20,6 +20,7 @@ class PooSweeperMenu{
   // Destructor
   ~PooSweeperMenu();
 
+  // Should the game end?
   bool exit;
 
  private:

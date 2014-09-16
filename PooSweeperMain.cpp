@@ -5,8 +5,10 @@
 
 // Main function
 int main(int argc, char** argv) {
+  // Object of PooSweeperMenu
   PooSweeperMenu menu;
   while (true) {
+    // Initialize the screen for the Menu
     menu.startScreen();
     menu.endScreen();
     if (menu.exit == true) break;

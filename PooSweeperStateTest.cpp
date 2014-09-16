@@ -389,6 +389,7 @@ TEST(PooSweeperStateTest, applyMove) {
     move.col = 1;
     move.type = PooSweeperMove::TOGGLE_MARK;
     pss.applyMove(move);
+    // Now the cell should be marked
     ASSERT_EQ(-2, pss.CellInfoStorage[1][1]);
     ASSERT_EQ(0, pss.numRevealed());
     ASSERT_EQ(1, pss.numMarked());
@@ -397,6 +398,7 @@ TEST(PooSweeperStateTest, applyMove) {
     moveback.col = 1;
     moveback.type = PooSweeperMove::TOGGLE_MARK;
     pss.applyMove(moveback);
+    // Now the cell should be unrevealed
     ASSERT_EQ(-1, pss.CellInfoStorage[1][1]);
     ASSERT_EQ(0, pss.numRevealed());
     ASSERT_EQ(0, pss.numMarked());
@@ -491,6 +493,7 @@ TEST(PooSweeperStateTest, checkPoo) {
   pss.CellInfoPoo[1][0] = PooSweeperState::POO;
   pss.CellInfoPoo[2][0] = PooSweeperState::POO;
   pss.CellInfoPoo[0][1] = PooSweeperState::POO;
+  // Check every field for poos
   ASSERT_EQ(true, pss.checkPoo(0, 0));
   ASSERT_EQ(true, pss.checkPoo(0, 1));
   ASSERT_EQ(false, pss.checkPoo(0, 2));
@@ -503,7 +506,9 @@ TEST(PooSweeperStateTest, checkPoo) {
 }
 
 TEST(PooSweeperStateTest, wonGame) {
+// Simple test with only the variables
   {
+    // Test for zero marked fields but no more fields without poos left
     PooSweeperState pss;
     pss._numRows = 5;
     pss._numCols = 5;
@@ -521,6 +526,7 @@ TEST(PooSweeperStateTest, wonGame) {
     ASSERT_EQ(PooSweeperStateBase::WON, pss._status);
   }
   {
+    // Test for a mix of the tests above and below
     PooSweeperState pss;
     pss._numRows = 5;
     pss._numCols = 5;
@@ -539,6 +545,7 @@ TEST(PooSweeperStateTest, wonGame) {
     ASSERT_EQ(PooSweeperStateBase::WON, pss._status);
   }
   {
+    // Test for all poos marked and all other fields revealed
     PooSweeperState pss;
     pss._numRows = 5;
     pss._numCols = 5;
@@ -558,7 +565,7 @@ TEST(PooSweeperStateTest, wonGame) {
   }
 }
 
-TEST (PooSweeperStateTest, revealPoos) {
+TEST(PooSweeperStateTest, revealPoos) {
   // Set a field with 5 poos
   PooSweeperState pss;
   pss._numRows = 3;
@@ -584,6 +591,7 @@ TEST (PooSweeperStateTest, revealPoos) {
   pss.CellInfoPoo[0][2] = PooSweeperState::POO;
   // Reveal all poos, normaly at end of game
   pss.revealPoos();
+  // All other fields should be unrevealed
   ASSERT_EQ(-3, pss.CellInfoStorage[0][0]);
   ASSERT_EQ(-3, pss.CellInfoStorage[0][1]);
   ASSERT_EQ(-3, pss.CellInfoStorage[0][2]);
